@@ -1,0 +1,2624 @@
+---
+title: "Sample Size and Percentages: What to Expect"
+author: "Mark Jurries"
+date: 2021-11-15T21:13:14-05:00
+categories: ["probability"]
+tags: ["probability", "plot", "r"]
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+
+<p>People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a <em>lot</em> of apples - so it’s helpful as well.</p>
+<p>Percentages are numbers as well, so they should be easy to measure as well. If Jack takes part in a Euchre tournament wins 60% of his games, then he’s pretty good. Right?</p>
+<p>Well, maybe. Firstly, we need to define how we’re looking at that number. If we’re simply asking how Jack played, then we use the 60% as what we call a <em>descriptive</em> statistic. That is, it tells us a story about what happened. If we want to use it to measure how we think he’ll do in the future, then it becomes a <em>predictive</em> statistic, and its usefulness will depend on how many games he played.</p>
+<p>In this case, it turns out he played 10. Knowing that, we can calculate what’s called the Standard Error. “Error” in this case doesn’t mean a mistake, rather, it refers to range we expect for the win percentage. If you’ve ever seen a poll with a +/- number, that’s what this is - they expect that between <em>x</em> and <em>y</em> percent of the population agree with whatever they’re polling about.</p>
+<blockquote>
+<p><strong>Boring Mathy Stuff</strong> If you don’t care to know the math, feel free to skip ahead. The standard error is defined as:
+<br> <br>sqrt(Win Percentage * (1 - Win Percentage) / Games )
+<br><br>If we plug in Jack’s numbers, we get:
+<br><br>sqrt((.6 * .4) / 10)
+<br>sqrt(0.24) / 10)
+<br>sqrt(0.024)
+<br>0.015</p>
+</blockquote>
+<p>We can then use the standard error along with the win percentage to get our range of what we think his talent really is.</p>
+<div id="gfnzgltfff" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gfnzgltfff .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gfnzgltfff .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gfnzgltfff .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gfnzgltfff .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gfnzgltfff .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gfnzgltfff .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gfnzgltfff .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gfnzgltfff .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfnzgltfff .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfnzgltfff .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gfnzgltfff .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gfnzgltfff .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gfnzgltfff .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#gfnzgltfff .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfnzgltfff .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfnzgltfff .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gfnzgltfff .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfnzgltfff .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfnzgltfff .gt_left {
+  text-align: left;
+}
+
+#gfnzgltfff .gt_center {
+  text-align: center;
+}
+
+#gfnzgltfff .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gfnzgltfff .gt_font_normal {
+  font-weight: normal;
+}
+
+#gfnzgltfff .gt_font_bold {
+  font-weight: bold;
+}
+
+#gfnzgltfff .gt_font_italic {
+  font-style: italic;
+}
+
+#gfnzgltfff .gt_super {
+  font-size: 65%;
+}
+
+#gfnzgltfff .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Games</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Win Percentage</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Standard Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Lower Range</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Higher Range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">15.5&percnt;</td>
+<td class="gt_row gt_right">44.5&percnt;</td>
+<td class="gt_row gt_right">75.5&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>So based on 10 games, we expect that if Jack played 1,000 games, his winning percentage would be somewhere between 44.5% and 77.5%. This makes sense - 60% isn’t that far off from 50%, which is just a coin flip. It’s more, though, so we think he’s probably a winning player, although we still think there’s a chance he’s not.</p>
+<blockquote>
+<p><strong>Technical aside:</strong> In a real-world situation, we’d look at a lot more data - such as the winning percentage of all Euchre players, quality of opponents, quality of partners, etc. And if most players fell in a lesser range - say 40% to 50% - we’d apply additional fancy math to bring our expectations in line with the general populace. We’re going to gloss over that here, just know there are other ways of estimating talent.</p>
+</blockquote>
+<p>We know intuitively that 10 games isn’t a lot. So we have another tournament (it’s the Midwest, after all, these things happen all the time) and Jack plays another 10 games. Conveniently for our illustration, he wins exactly six more, so now we can simply double our totals. Let’s see what that does to our estimates:</p>
+<div id="neogiwlsrc" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#neogiwlsrc .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#neogiwlsrc .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#neogiwlsrc .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#neogiwlsrc .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#neogiwlsrc .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#neogiwlsrc .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#neogiwlsrc .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#neogiwlsrc .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#neogiwlsrc .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#neogiwlsrc .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#neogiwlsrc .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#neogiwlsrc .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#neogiwlsrc .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#neogiwlsrc .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#neogiwlsrc .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#neogiwlsrc .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#neogiwlsrc .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#neogiwlsrc .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#neogiwlsrc .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#neogiwlsrc .gt_left {
+  text-align: left;
+}
+
+#neogiwlsrc .gt_center {
+  text-align: center;
+}
+
+#neogiwlsrc .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#neogiwlsrc .gt_font_normal {
+  font-weight: normal;
+}
+
+#neogiwlsrc .gt_font_bold {
+  font-weight: bold;
+}
+
+#neogiwlsrc .gt_font_italic {
+  font-style: italic;
+}
+
+#neogiwlsrc .gt_super {
+  font-size: 65%;
+}
+
+#neogiwlsrc .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Games</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Win Percentage</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Standard Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Lower Range</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Higher Range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">12</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">11.0&percnt;</td>
+<td class="gt_row gt_right">49.0&percnt;</td>
+<td class="gt_row gt_right">71.0&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>Now that we have more information our standard error has shrunk. We think it a lot less likely that he’s a losing player, although we also think it’s less likely that he’s a superstar. That said, going +/- 11% is still not super-helpful. Let’s see how that changes as we add more games to Jack’s totals.</p>
+<div id="nhzdevpbsd" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#nhzdevpbsd .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#nhzdevpbsd .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#nhzdevpbsd .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#nhzdevpbsd .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#nhzdevpbsd .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#nhzdevpbsd .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#nhzdevpbsd .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#nhzdevpbsd .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nhzdevpbsd .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#nhzdevpbsd .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#nhzdevpbsd .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#nhzdevpbsd .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#nhzdevpbsd .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#nhzdevpbsd .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nhzdevpbsd .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#nhzdevpbsd .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#nhzdevpbsd .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#nhzdevpbsd .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#nhzdevpbsd .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#nhzdevpbsd .gt_left {
+  text-align: left;
+}
+
+#nhzdevpbsd .gt_center {
+  text-align: center;
+}
+
+#nhzdevpbsd .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#nhzdevpbsd .gt_font_normal {
+  font-weight: normal;
+}
+
+#nhzdevpbsd .gt_font_bold {
+  font-weight: bold;
+}
+
+#nhzdevpbsd .gt_font_italic {
+  font-style: italic;
+}
+
+#nhzdevpbsd .gt_super {
+  font-size: 65%;
+}
+
+#nhzdevpbsd .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Games</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Wins</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Win Percentage</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Standard Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Lower Range</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Higher Range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">6</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">15.5&percnt;</td>
+<td class="gt_row gt_right">44.5&percnt;</td>
+<td class="gt_row gt_right">75.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">12</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">11.0&percnt;</td>
+<td class="gt_row gt_right">49.0&percnt;</td>
+<td class="gt_row gt_right">71.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">30</td>
+<td class="gt_row gt_right">18</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">8.9&percnt;</td>
+<td class="gt_row gt_right">51.1&percnt;</td>
+<td class="gt_row gt_right">68.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">40</td>
+<td class="gt_row gt_right">24</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">7.7&percnt;</td>
+<td class="gt_row gt_right">52.3&percnt;</td>
+<td class="gt_row gt_right">67.7&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">50</td>
+<td class="gt_row gt_right">30</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">6.9&percnt;</td>
+<td class="gt_row gt_right">53.1&percnt;</td>
+<td class="gt_row gt_right">66.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">60</td>
+<td class="gt_row gt_right">36</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">6.3&percnt;</td>
+<td class="gt_row gt_right">53.7&percnt;</td>
+<td class="gt_row gt_right">66.3&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">70</td>
+<td class="gt_row gt_right">42</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">5.9&percnt;</td>
+<td class="gt_row gt_right">54.1&percnt;</td>
+<td class="gt_row gt_right">65.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">48</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">5.5&percnt;</td>
+<td class="gt_row gt_right">54.5&percnt;</td>
+<td class="gt_row gt_right">65.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">90</td>
+<td class="gt_row gt_right">54</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">5.2&percnt;</td>
+<td class="gt_row gt_right">54.8&percnt;</td>
+<td class="gt_row gt_right">65.2&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">100</td>
+<td class="gt_row gt_right">60</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">4.9&percnt;</td>
+<td class="gt_row gt_right">55.1&percnt;</td>
+<td class="gt_row gt_right">64.9&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>The more games we add, the more we think it likely that Jack’s true talent is around 60%. Now, in this example, he’s Mr. Consistent, winning 6 out of every 10 games no matter what, so we’re in no duh, Sherlock territory. Let’s take a look at a slightly more realistic scenario, this time envisioning what his winning percentage is every ten games. To do this, we’ll simulate the data - imagine Dr. Strange looping Dormammu in a time loop, only in this case we’re creating a digital copy of Jack and making him play Euchre over and over again, each time with slightly different results. (No Jacks were harmed in the making of this data.)</p>
+<div id="opbphdhnqs" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#opbphdhnqs .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#opbphdhnqs .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#opbphdhnqs .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#opbphdhnqs .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#opbphdhnqs .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#opbphdhnqs .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#opbphdhnqs .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#opbphdhnqs .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#opbphdhnqs .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#opbphdhnqs .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#opbphdhnqs .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#opbphdhnqs .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#opbphdhnqs .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#opbphdhnqs .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#opbphdhnqs .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#opbphdhnqs .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#opbphdhnqs .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#opbphdhnqs .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#opbphdhnqs .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#opbphdhnqs .gt_left {
+  text-align: left;
+}
+
+#opbphdhnqs .gt_center {
+  text-align: center;
+}
+
+#opbphdhnqs .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#opbphdhnqs .gt_font_normal {
+  font-weight: normal;
+}
+
+#opbphdhnqs .gt_font_bold {
+  font-weight: bold;
+}
+
+#opbphdhnqs .gt_font_italic {
+  font-style: italic;
+}
+
+#opbphdhnqs .gt_super {
+  font-size: 65%;
+}
+
+#opbphdhnqs .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Games</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Win Percentage</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Standard Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Lower Range</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Higher Range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">40.0&percnt;</td>
+<td class="gt_row gt_right">15.5&percnt;</td>
+<td class="gt_row gt_right">24.5&percnt;</td>
+<td class="gt_row gt_right">55.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">50.0&percnt;</td>
+<td class="gt_row gt_right">11.2&percnt;</td>
+<td class="gt_row gt_right">38.8&percnt;</td>
+<td class="gt_row gt_right">61.2&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">30</td>
+<td class="gt_row gt_right">53.3&percnt;</td>
+<td class="gt_row gt_right">9.1&percnt;</td>
+<td class="gt_row gt_right">44.2&percnt;</td>
+<td class="gt_row gt_right">62.4&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">40</td>
+<td class="gt_row gt_right">55.0&percnt;</td>
+<td class="gt_row gt_right">7.9&percnt;</td>
+<td class="gt_row gt_right">47.1&percnt;</td>
+<td class="gt_row gt_right">62.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">50</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">6.9&percnt;</td>
+<td class="gt_row gt_right">53.1&percnt;</td>
+<td class="gt_row gt_right">66.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">60</td>
+<td class="gt_row gt_right">56.7&percnt;</td>
+<td class="gt_row gt_right">6.4&percnt;</td>
+<td class="gt_row gt_right">50.3&percnt;</td>
+<td class="gt_row gt_right">63.1&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">70</td>
+<td class="gt_row gt_right">58.6&percnt;</td>
+<td class="gt_row gt_right">5.9&percnt;</td>
+<td class="gt_row gt_right">52.7&percnt;</td>
+<td class="gt_row gt_right">64.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">57.5&percnt;</td>
+<td class="gt_row gt_right">5.5&percnt;</td>
+<td class="gt_row gt_right">52.0&percnt;</td>
+<td class="gt_row gt_right">63.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">90</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">5.2&percnt;</td>
+<td class="gt_row gt_right">54.8&percnt;</td>
+<td class="gt_row gt_right">65.2&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">100</td>
+<td class="gt_row gt_right">57.0&percnt;</td>
+<td class="gt_row gt_right">5.0&percnt;</td>
+<td class="gt_row gt_right">52.0&percnt;</td>
+<td class="gt_row gt_right">62.0&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>In this example, Jack hit 100 games with a 57% win percentage, but we expect his him to be between 52% and 62% going forward. But since we’re making our virtual Jack play over and over again, let’s take a look at another set of 100 games.</p>
+<div id="ryouzdxebi" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#ryouzdxebi .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#ryouzdxebi .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#ryouzdxebi .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#ryouzdxebi .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#ryouzdxebi .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#ryouzdxebi .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#ryouzdxebi .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#ryouzdxebi .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ryouzdxebi .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#ryouzdxebi .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#ryouzdxebi .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#ryouzdxebi .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#ryouzdxebi .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#ryouzdxebi .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ryouzdxebi .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#ryouzdxebi .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#ryouzdxebi .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ryouzdxebi .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#ryouzdxebi .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#ryouzdxebi .gt_left {
+  text-align: left;
+}
+
+#ryouzdxebi .gt_center {
+  text-align: center;
+}
+
+#ryouzdxebi .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#ryouzdxebi .gt_font_normal {
+  font-weight: normal;
+}
+
+#ryouzdxebi .gt_font_bold {
+  font-weight: bold;
+}
+
+#ryouzdxebi .gt_font_italic {
+  font-style: italic;
+}
+
+#ryouzdxebi .gt_super {
+  font-size: 65%;
+}
+
+#ryouzdxebi .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Games</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Win Percentage</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Standard Error</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Lower Range</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Higher Range</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">10</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">15.5&percnt;</td>
+<td class="gt_row gt_right">44.5&percnt;</td>
+<td class="gt_row gt_right">75.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">20</td>
+<td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right">11.0&percnt;</td>
+<td class="gt_row gt_right">49.0&percnt;</td>
+<td class="gt_row gt_right">71.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">30</td>
+<td class="gt_row gt_right">66.7&percnt;</td>
+<td class="gt_row gt_right">8.6&percnt;</td>
+<td class="gt_row gt_right">58.1&percnt;</td>
+<td class="gt_row gt_right">75.3&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">40</td>
+<td class="gt_row gt_right">67.5&percnt;</td>
+<td class="gt_row gt_right">7.4&percnt;</td>
+<td class="gt_row gt_right">60.1&percnt;</td>
+<td class="gt_row gt_right">74.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">50</td>
+<td class="gt_row gt_right">70.0&percnt;</td>
+<td class="gt_row gt_right">6.5&percnt;</td>
+<td class="gt_row gt_right">63.5&percnt;</td>
+<td class="gt_row gt_right">76.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">60</td>
+<td class="gt_row gt_right">73.3&percnt;</td>
+<td class="gt_row gt_right">5.7&percnt;</td>
+<td class="gt_row gt_right">67.6&percnt;</td>
+<td class="gt_row gt_right">79.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">70</td>
+<td class="gt_row gt_right">68.6&percnt;</td>
+<td class="gt_row gt_right">5.5&percnt;</td>
+<td class="gt_row gt_right">63.0&percnt;</td>
+<td class="gt_row gt_right">74.1&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">80</td>
+<td class="gt_row gt_right">67.5&percnt;</td>
+<td class="gt_row gt_right">5.2&percnt;</td>
+<td class="gt_row gt_right">62.3&percnt;</td>
+<td class="gt_row gt_right">72.7&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">90</td>
+<td class="gt_row gt_right">66.7&percnt;</td>
+<td class="gt_row gt_right">5.0&percnt;</td>
+<td class="gt_row gt_right">61.7&percnt;</td>
+<td class="gt_row gt_right">71.6&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">100</td>
+<td class="gt_row gt_right">64.0&percnt;</td>
+<td class="gt_row gt_right">4.8&percnt;</td>
+<td class="gt_row gt_right">59.2&percnt;</td>
+<td class="gt_row gt_right">68.8&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>Well, this one looks more promising, anyway - 64% success rate, and we think he’s at least a 59% player. But our last sim was at 57%, so we had an 8 point swing. This shows why sample size is so critical - we can get very different numbers within even 100 games, even though in both cases he’s a 60% winner.</p>
+<p>To get a better feel for this, let’s make our virtual Jack play 100 games of Euchre 1,000 times. We can then see how much his win % varies by looking at all of our sims at once. The blue line is the average of all our sims put together.</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/simmed_table_plot-1.png" width="960" />
+Notice how our range gets smaller the more we play, and how our simulated game range matches closely with our standard error. This drives in our key takeaway: sample sizes always have some randomness, even at what most of use would consider to be a large amount. (We think 100 is large, but in this context it’s not as large as we’d like). So when you see a percentage and want to predict what it will do in the future, do so knowing that the amount of data is meaningful as well for making that prediction.</p>
+<p><strong>Appendix:</strong> We can see how the standard error changes with both the success rate and sample size. Note it’s largest at 50%, since that’s our standard coin toss. Also note that it’s symeterical - 0.9 and 0.1 have the same values. Since the formula uses success rate * (1-success rate), then 0.9 * 0.1 and 0.1 * 0.9 have the same value. This is also why 0 and 1 have no error. 1 * 0 is zero.</p>
+<div id="jrhzkmotku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#jrhzkmotku .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 3px;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#jrhzkmotku .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#jrhzkmotku .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 3px;
+  border-top-color: #FFFFFF;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#jrhzkmotku .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#jrhzkmotku .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#jrhzkmotku .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#jrhzkmotku .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #000000;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#jrhzkmotku .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jrhzkmotku .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#jrhzkmotku .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#jrhzkmotku .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#jrhzkmotku .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#jrhzkmotku .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#jrhzkmotku .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jrhzkmotku .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#jrhzkmotku .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#jrhzkmotku .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jrhzkmotku .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#jrhzkmotku .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#jrhzkmotku .gt_left {
+  text-align: left;
+}
+
+#jrhzkmotku .gt_center {
+  text-align: center;
+}
+
+#jrhzkmotku .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#jrhzkmotku .gt_font_normal {
+  font-weight: normal;
+}
+
+#jrhzkmotku .gt_font_bold {
+  font-weight: bold;
+}
+
+#jrhzkmotku .gt_font_italic {
+  font-style: italic;
+}
+
+#jrhzkmotku .gt_super {
+  font-size: 65%;
+}
+
+#jrhzkmotku .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Success Rate</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">50</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">100</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">150</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">200</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">250</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">300</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">350</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">400</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">450</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">500</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">550</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">600</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_right">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B4D3E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D8E7F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DCE9F6; color: #000000;">1.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DEEBF7; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E0ECF8; color: #000000;">1.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E1EDF8; color: #000000;">1.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E2EEF8; color: #000000;">1.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E4EFF9; color: #000000;">1.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E4EFF9; color: #000000;">0.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E5F0F9; color: #000000;">0.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">10.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #8BBFDD; color: #000000;">4.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B6D4E9; color: #000000;">3.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D5E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E6F5; color: #000000;">1.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D9E8F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DBE9F6; color: #000000;">1.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DCEAF6; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DDEBF7; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DFEBF7; color: #000000;">1.2&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">15.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #6AADD5; color: #000000;">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A4CCE3; color: #000000;">3.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B9D5EA; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C5DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDEF1; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CEE1F2; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D6E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E7F5; color: #000000;">1.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D9E7F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DAE8F6; color: #000000;">1.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">20.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #579FCE; color: #000000;">5.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #94C4DF; color: #000000;">4.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AED1E6; color: #000000;">3.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BCD7EB; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C5DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D0E1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D5E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E6F5; color: #000000;">1.6&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">25.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #4795C8; color: #000000;">6.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #87BDDC; color: #000000;">4.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A5CDE3; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B4D3E9; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BFD8EC; color: #000000;">2.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C6DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D3E3F3; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">30.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3D8CC3; color: #000000;">6.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #7DB7DA; color: #000000;">4.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #9ECAE1; color: #000000;">3.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AFD1E7; color: #000000;">3.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B9D6EB; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C1D9ED; color: #000000;">2.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADEF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">35.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3785BF; color: #FFFFFF;">6.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #75B3D8; color: #000000;">4.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #98C7E0; color: #000000;">3.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AACFE5; color: #000000;">3.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B6D4E9; color: #000000;">3.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BED8EC; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C4DAEE; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C8DCF0; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDEF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F3; color: #000000;">1.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">40.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3280BD; color: #FFFFFF;">6.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #70B0D7; color: #000000;">4.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #94C4DF; color: #000000;">4.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A7CEE4; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B3D3E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BCD7EB; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C2D9EE; color: #000000;">2.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CEE0F2; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D0E1F2; color: #000000;">2.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">45.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #2F7DBB; color: #FFFFFF;">7.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #6CAFD6; color: #000000;">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #92C3DE; color: #000000;">4.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A6CDE4; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B2D2E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BAD6EB; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C1D9ED; color: #000000;">2.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C6DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C9DDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">50.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #2E7CBB; color: #FFFFFF;">7.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #6BAED6; color: #000000;">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #91C2DE; color: #000000;">4.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A5CDE3; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B1D2E8; color: #000000;">3.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BAD6EB; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C1D9ED; color: #000000;">2.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C6DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C9DDF0; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDEF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">55.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #2F7DBB; color: #FFFFFF;">7.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #6CAFD6; color: #000000;">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #92C3DE; color: #000000;">4.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A6CDE4; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B2D2E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BAD6EB; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C1D9ED; color: #000000;">2.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C6DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C9DDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">60.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3280BD; color: #FFFFFF;">6.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #70B0D7; color: #000000;">4.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #94C4DF; color: #000000;">4.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A7CEE4; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B3D3E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BCD7EB; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C2D9EE; color: #000000;">2.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CEE0F2; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D0E1F2; color: #000000;">2.0&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">65.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3785BF; color: #FFFFFF;">6.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #75B3D8; color: #000000;">4.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #98C7E0; color: #000000;">3.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AACFE5; color: #000000;">3.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B6D4E9; color: #000000;">3.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BED8EC; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C4DAEE; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C8DCF0; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDEF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F3; color: #000000;">1.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">70.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #3D8CC3; color: #000000;">6.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #7DB7DA; color: #000000;">4.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #9ECAE1; color: #000000;">3.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AFD1E7; color: #000000;">3.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B9D6EB; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C1D9ED; color: #000000;">2.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADEF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">75.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #4795C8; color: #000000;">6.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #87BDDC; color: #000000;">4.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A5CDE3; color: #000000;">3.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B4D3E9; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BFD8EC; color: #000000;">2.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C6DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CFE1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E2F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D3E3F3; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">80.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #579FCE; color: #000000;">5.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #94C4DF; color: #000000;">4.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #AED1E6; color: #000000;">3.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #BCD7EB; color: #000000;">2.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C5DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CADDF0; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D0E1F2; color: #000000;">2.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D5E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E6F5; color: #000000;">1.6&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">85.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #6AADD5; color: #000000;">5.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #A4CCE3; color: #000000;">3.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B9D5EA; color: #000000;">2.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C5DBEF; color: #000000;">2.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CBDEF1; color: #000000;">2.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CEE1F2; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D1E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D6E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E7F5; color: #000000;">1.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D9E7F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DAE8F6; color: #000000;">1.5&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">90.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #8BBFDD; color: #000000;">4.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B6D4E9; color: #000000;">3.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #C7DCEF; color: #000000;">2.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CDE0F1; color: #000000;">2.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D2E3F3; color: #000000;">1.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D5E5F4; color: #000000;">1.7&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D7E6F5; color: #000000;">1.6&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D9E8F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DBE9F6; color: #000000;">1.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DCEAF6; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DDEBF7; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DFEBF7; color: #000000;">1.2&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">95.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #B4D3E8; color: #000000;">3.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #CCDFF1; color: #000000;">2.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D4E4F4; color: #000000;">1.8&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #D8E7F5; color: #000000;">1.5&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DCE9F6; color: #000000;">1.4&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #DEEBF7; color: #000000;">1.3&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E0ECF8; color: #000000;">1.2&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E1EDF8; color: #000000;">1.1&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E2EEF8; color: #000000;">1.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E4EFF9; color: #000000;">1.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E4EFF9; color: #000000;">0.9&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #E5F0F9; color: #000000;">0.9&percnt;</td></tr>
+    <tr><td class="gt_row gt_right">100.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td>
+<td class="gt_row gt_right" style="background-color: #F7FBFF; color: #000000;">0.0&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
