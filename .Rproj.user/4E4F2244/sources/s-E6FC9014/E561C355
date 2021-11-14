@@ -3,7 +3,7 @@
     "path": "~/GitHub/pointestimate_blog/config.yaml",
     "project_path": "config.yaml",
     "type": "yaml",
-    "hash": "0",
+    "hash": "1257982585",
     "contents": "",
     "dirty": false,
     "created": 1636855201035.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "0,41",
-        "scrollLine": "0"
+        "cursorPosition": "16,30",
+        "scrollLine": "1"
     },
     "folds": "",
-    "lastKnownWriteTime": 1636855271,
+    "lastKnownWriteTime": 1636856532,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1636855271456,
+    "last_content_update": 1636856532320,
     "read_only": false,
     "read_only_alternatives": []
 }
