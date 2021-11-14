@@ -1,4 +1,4 @@
-baseURL: "http://www.pointestimates.com/"
+baseURL: "http://localhost:1313/"
 languageCode: en
 defaultContentLanguage: en
 title: Point Estimates
