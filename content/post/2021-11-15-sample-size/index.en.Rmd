@@ -71,7 +71,7 @@ euchre_results %>%
 ```
 So based on 10 games, we expect that if Jack played 1,000 games, his winning percentage would be somewhere between 44.5% and 77.5%. This makes sense - 60% isn't that far off from 50%, which is just a coin flip. It's more, though, so we think he's probably a winning player, although we still think there's a chance he's not.
 
-> **Technical aside:** In a real-world situation, we'd look at a lot more data - such as the winning percentage of all Euchre players, quality of opponents, quality of partners, etc. And if most players fell in a lesser range - say 40% to 50% - we'd apply additional fancy math to bring our expectations in line with the general populace. We're going to gloss over that here, just know there are other ways of estimating talent.
+>**Technical aside:** In a real-world situation, we'd look at a lot more data - such as the winning percentage of all Euchre players, quality of opponents, quality of partners, etc. And if most players fell in a lesser range - say 40% to 50% - we'd apply additional fancy math to bring our expectations in line with the general populace. We're going to gloss over that here, just know there are other ways of estimating talent.
 
 We know intuitively that 10 games isn't a lot. So we have another tournament (it's the Midwest, after all, these things happen all the time) and Jack plays another 10 games. Conveniently for our illustration, he wins exactly six more, so now we can simply double our totals. Let's see what that does to our estimates:
 
@@ -202,6 +202,8 @@ sim_one %>%
       )
 ```
 In this example, Jack hit 100 games with a 57% win percentage, but we expect his him to be between 52% and 62% going forward. But since we're making our virtual Jack play over and over again, let's take a look at another set of 100 games.
+
+>**Technical aside:** What we're now looking at is how many games we expect someone with a true 60% win talent to perform in a random set of 100 games. We're looking to illustrate something else, but just bear in mind we're hijacking one process to show another.
 
 ```{r simmed_table_two, echo = FALSE, warning = FALSE, message = FALSE}
 
