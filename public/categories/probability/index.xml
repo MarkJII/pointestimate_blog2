@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>probability on Point Estimates</title>
+    <link>/categories/probability/</link>
+    <description>Recent content in probability on Point Estimates</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Mon, 15 Nov 2021 07:00:00 -0500</lastBuildDate><atom:link href="/categories/probability/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Sample Size and Percentages: What to Expect</title>
+      <link>/post/2021-11-15-sample-size/</link>
+      <pubDate>Mon, 15 Nov 2021 07:00:00 -0500</pubDate>
+      
+      <guid>/post/2021-11-15-sample-size/</guid>
+      <description>People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a lot of apples - so it’s helpful as well.
+Percentages are numbers as well, so they should be easy to measure as well.</description>
+    </item>
+    
+  </channel>
+</rss>

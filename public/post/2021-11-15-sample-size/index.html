@@ -1,12 +1,168 @@
----
-title: "Sample Size and Percentages: What to Expect"
-author: "Mark Jurries"
-date: 2021-11-15T07:00:00-05:00
-categories: ["probability"]
-tags: ["probability", "plot", "r"]
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Sample Size and Percentages: What to Expect - Point Estimates</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 
-<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Mark Jurries" /><meta name="description" content="People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a lot of apples - so it’s helpful as well.
+Percentages are numbers as well, so they should be easy to measure as well." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="/post/2021-11-15-sample-size/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b874a8796a492f0d7c86bb24c33cbf052935783a5778ebaf819a8e514bf49f10.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Sample Size and Percentages: What to Expect" />
+<meta property="og:description" content="People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a lot of apples - so it’s helpful as well.
+Percentages are numbers as well, so they should be easy to measure as well." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2021-11-15-sample-size/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-11-15T07:00:00-05:00" />
+<meta property="article:modified_time" content="2021-11-15T07:00:00-05:00" />
+
+<meta itemprop="name" content="Sample Size and Percentages: What to Expect">
+<meta itemprop="description" content="People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a lot of apples - so it’s helpful as well.
+Percentages are numbers as well, so they should be easy to measure as well."><meta itemprop="datePublished" content="2021-11-15T07:00:00-05:00" />
+<meta itemprop="dateModified" content="2021-11-15T07:00:00-05:00" />
+<meta itemprop="wordCount" content="5282">
+<meta itemprop="keywords" content="probability,plot,r," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Sample Size and Percentages: What to Expect"/>
+<meta name="twitter:description" content="People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a lot of apples - so it’s helpful as well.
+Percentages are numbers as well, so they should be easy to measure as well."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28GSTJXMEJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-28GSTJXMEJ');
+</script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Point Estimates</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Point Estimates</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Sample Size and Percentages: What to Expect</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-11-15 </span>
+        <div class="post-category">
+            <a href="/categories/probability/"> probability </a>
+            </div>
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">Contents</h2>
+  <div class="post-toc-content always-active">
+    
+  </div>
+</div>
+    <div class="post-content">
+      
+<script src="/post/2021-11-15-sample-size/index.en_files/header-attrs/header-attrs.js"></script>
 
 
 <p>People are really good at comparing numbers. If you have 1,000 apples and I have 10, you can tell me pretty quickly that you have 990 more apples than I do. You can also put that into some context - we know intuitively that that’s a <em>lot</em> of apples - so it’s helpful as well.</p>
@@ -1986,7 +2142,7 @@ tags: ["probability", "plot", "r"]
 </div>
 <p>Well, this one looks more promising, anyway - 64% success rate, and we think he’s at least a 59% player. But our last sim was at 57%, so we had an 8 point swing. This shows why sample size is so critical - we can get very different numbers within even 100 games, even though in both cases he’s a 60% winner.</p>
 <p>To get a better feel for this, let’s make our virtual Jack play 100 games of Euchre 1,000 times. We can then see how much his win % varies by looking at all of our sims at once. The blue line is the average of all our sims put together.</p>
-<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/simmed_table_plot-1.png" width="960" />
+<p><img src="/post/2021-11-15-sample-size/index.en_files/figure-html/simmed_table_plot-1.png" width="960" />
 Notice how our range gets smaller the more we play, and how our simulated game range matches closely with our standard error. This drives in our key takeaway: sample sizes always have some randomness, even at what most of use would consider to be a large amount. (We think 100 is large, but in this context it’s not as large as we’d like). So when you see a percentage and want to predict what it will do in the future, do so knowing that the amount of data is meaningful as well for making that prediction.</p>
 <p><strong>Appendix:</strong> We can see how the standard error changes with both the success rate and sample size. Note it’s largest at 50%, since that’s our standard coin toss. Also note that it’s symeterical - 0.9 and 0.1 have the same values. Since the formula uses success rate * (1-success rate), then 0.9 * 0.1 and 0.1 * 0.9 have the same value. This is also why 0 and 1 have no error. 1 * 0 is zero.</p>
 <div id="jrhzkmotku" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
@@ -2625,3 +2781,104 @@ Notice how our range gets smaller the more we play, and how our simulated game r
   
 </table>
 </div>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">Mark Jurries</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+        2021-11-15
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/probability/">probability</a>
+          <a href="/tags/plot/">plot</a>
+          <a href="/tags/r/">r</a>
+          </div>
+      <nav class="post-nav">
+        
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.linkedin.com/in/mark-jurries-ii-94b61313/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/MarkJII?tab=repositories" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Mark Jurries II</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-28GSTJXMEJ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>
