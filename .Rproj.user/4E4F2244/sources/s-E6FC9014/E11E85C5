@@ -3,7 +3,7 @@
     "path": "~/GitHub/pointestimate_blog/config.yaml",
     "project_path": "config.yaml",
     "type": "yaml",
-    "hash": "3553113527",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1636939768804.0,
@@ -12,7 +12,7 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "1,31",
+        "cursorPosition": "16,0",
         "scrollLine": "0"
     },
     "folds": "",
