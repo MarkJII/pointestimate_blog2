@@ -1,6 +1,6 @@
 ---
 title: Pitching Wins Playoffs, Unless it Doesn't.
-date: '2021-11-21'
+date: '2021-11-22'
 author: "Mark Jurries"
 categories: ["probability"]
 tags: ["probability", "plot", "r", "baseball"]
@@ -23,7 +23,7 @@ Every year, we hear that pitching wins the MLB postseason. This is often said by
 
 The first thing we have to do is figure out how we'll do it. Since the team that wins the World Series will typically give up fewer runs, we can't really use runs allowed in the World Series to see who has the better staff. Thankfully, we have whole seasons worth of data we can use instead.
 
-To keep things simple, we'll look at only teams that made the World Series. For each, we'll compare their pitching and their hitting to see who was better at each. Theoretically, we should see more teams with better pitching winning than teams with better hitting.  
+Our approach will be straightforward - for each team in the World Series, we'll compare their pitching and their hitting to see who was better at each. Theoretically, we should see more teams with better pitching winning than teams with better hitting.  
 
 We'll determine this by looking at three pairs of metrics:
 
