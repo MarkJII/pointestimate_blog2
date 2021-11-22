@@ -1,6 +1,6 @@
 ---
 title: Pitching Wins Playoffs, Unless it Doesn't.
-date: '2021-11-22'
+date: '2021-11-21'
 author: "Mark Jurries"
 categories: ["probability"]
 tags: ["probability", "plot", "r", "baseball"]
@@ -31,7 +31,7 @@ We'll determine this by looking at three pairs of metrics:
 * ERA vs AVG
 * FIP- vs wRC+
 
-For each metric, we'll see how much better the winning team was than the losing team. We'll go back to 1920 for this, this will give us 95 series to look at - it was skipped some years during WWII as well as during the strike-shortened 1994 season. All our data will come from the [Lahman database](http://www.seanlahman.com/baseball-archive/statistics/) via the excellent [BaseballR] (https://billpetti.github.io/baseballr/) package in R and [Fangraphs](http://www.fangraphs.com). Since we're matching two data sets, there are some series we'll miss, but not enough to materially impact our results.
+For each metric, we'll see how much better the winning team was than the losing team. We'll go back to 1920 for this, this will give us 95 series to look at - it was skipped some years during WWII as well as during the strike-shortened 1994 season. All our data will come from the [Lahman database](http://www.seanlahman.com/baseball-archive/statistics/) via the excellent [BaseballR](https://billpetti.github.io/baseballr/) package in R and [Fangraphs](http://www.fangraphs.com). Since we're matching two data sets, there are some series we'll miss, but not enough to materially impact our results.
 
 > This method should work, but let's note at the offset that it's a fairly crude approach. If a team benefited from a particularly good starter who got injured before the postseason, we should technically adjust for them being out of the picture. Also, we're only looking at who won the Series and ignoring games played and run differential. Since we hear "pitching wins championships" and not "pitching win championships in 7 game series but not 5 game series", we're OK, just note that this can be researched at a deeper level.
 
@@ -188,7 +188,7 @@ In recent history, better hitting teams have had the run - this has repeated sev
 
 But what if we look at other metrics? Let's try the old stalwarts, ERA and batting average, to see if they change the story.
 
-```{r trad_stats_table}
+```{r trad_stats_table, echo = FALSE, warning = FALSE, message=FALSE}
 ws_trad_stats <- world_series_team_stats %>%   
   mutate(adv_type = case_when(avg_dif >= 0 & avg_dif <= 0 ~ 'Better Pitching and Hitting',
                    avg_dif < 0 & avg_dif <= 0 ~ 'Better Pitching, Worse Hitting',
@@ -221,7 +221,7 @@ Well, that was certainly anticlimactic. Not surprisingly, perhaps, since runs sc
 
 Maybe sabermetric stats will show a different story instead. Let's look at FIP-, which is essentially how good a pitcher is compared to league average looking at strikeouts, walks, and home runs, adjusting for league and park. This takes defense out of the picture, but we're looking to see if pitching wins, not pitching and defense, so maybe this will help. For offense, we'll use wRC+, which says how good a hitter is compared to league average, against adjusting for park.
 
-```{r saber_stats_table}
+```{r saber_stats_table, echo = FALSE, warning = FALSE, message=FALSE}
 ws_saber_stats <- world_series_team_stats %>%   
   mutate(adv_type = case_when(fip_minus_dif >= 0 & wrc_plus_dif <= 0 ~ 'Better Pitching and Hitting',
                    fip_minus_dif < 0 & wrc_plus_dif <= 0 ~ 'Better Pitching, Worse Hitting',
@@ -247,7 +247,7 @@ ws_saber_table <- ws_saber_stats %>%
     cols_label(
     better_wrc_plus = "",
   )
-
+ 
 ws_saber_table
 ```
 You're forgiven if you think I've just shown you the same table again, but here we are. No matter how we cut if, there's a slight edge to teams with better offense.

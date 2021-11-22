@@ -247,7 +247,7 @@ ws_saber_table <- ws_saber_stats %>%
     cols_label(
     better_wrc_plus = "",
   )
-
+ 
 ws_saber_table
 ```
 You're forgiven if you think I've just shown you the same table again, but here we are. No matter how we cut if, there's a slight edge to teams with better offense.
