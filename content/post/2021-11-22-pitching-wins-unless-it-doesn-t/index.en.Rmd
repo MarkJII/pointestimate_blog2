@@ -1,0 +1,255 @@
+---
+title: Pitching Wins Playoffs, Unless it Doesn't.
+date: '2021-11-22'
+author: "Mark Jurries"
+categories: ["probability"]
+tags: ["probability", "plot", "r", "baseball"]
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+library(Lahman)
+library(dplyr)
+library(ggplot2)
+library(hrbrthemes)
+library(plotly)
+library(gt)
+library(tidyverse)
+
+set.seed(2021)
+```
+
+Every year, we hear that pitching wins the MLB postseason. This is often said by ex-pitchers so we expect some bias, but even so there's some merit. After all, teams get to take advantage of the travel schedule to go from five starters to four, putting their worst starter in the bullpen where he'll either ride the bench or be used in shorter, more effective spurts. But just because it makes sense doesn't mean we can't test it.
+
+The first thing we have to do is figure out how we'll do it. Since the team that wins the World Series will typically give up fewer runs, we can't really use runs allowed in the World Series to see who has the better staff. Thankfully, we have whole seasons worth of data we can use instead.
+
+To keep things simple, we'll look at only teams that made the World Series. For each, we'll compare their pitching and their hitting to see who was better at each. Theoretically, we should see more teams with better pitching winning than teams with better hitting.  
+
+We'll determine this by looking at three pairs of metrics:
+
+* Runs allowed per game vs. runs scored per game.
+* ERA vs AVG
+* FIP- vs wRC+
+
+For each metric, we'll see how much better the winning team was than the losing team. We'll go back to 1920 for this, this will give us 95 series to look at - it was skipped some years during WWII as well as during the strike-shortened 1994 season. All our data will come from the [Lahman database](http://www.seanlahman.com/baseball-archive/statistics/) via the excellent [BaseballR] (https://billpetti.github.io/baseballr/) package in R and [Fangraphs](http://www.fangraphs.com). Since we're matching two data sets, there are some series we'll miss, but not enough to materially impact our results.
+
+> This method should work, but let's note at the offset that it's a fairly crude approach. If a team benefited from a particularly good starter who got injured before the postseason, we should technically adjust for them being out of the picture. Also, we're only looking at who won the Series and ignoring games played and run differential. Since we hear "pitching wins championships" and not "pitching win championships in 7 game series but not 5 game series", we're OK, just note that this can be researched at a deeper level.
+
+```{r prep_data, echo = FALSE, warning = FALSE, include=FALSE}
+br_data <- Lahman::Teams %>%
+  select(yearID, teamIDBR, G, W, R, RA, DivWin, WCWin, LgWin, WSWin, name) %>%
+  mutate(RS_G = R/G,
+         RA_G = RA/G)
+
+fg_hitting <- read.csv('fangraphs_team_hitting.csv')
+fg_pitching <- read.csv('fangraphs_team_pitching.csv')
+
+fg_all <- fg_hitting %>%
+  inner_join(fg_pitching, by = c('ï..Season', 'Team')) %>%
+  as_tibble() %>%
+  rename(yearID = ï..Season, teamIDBR = Team) %>%
+  select(yearID, teamIDBR, AVG, OBP, SLG, wOBA, wRC., BsR, Off, Def, WAR.x, 
+         K.9, BB.9, HR.9, BABIP.y, ERA, FIP, WAR.y, ERA., FIP.) %>%
+  rename(batting_WAR = WAR.x, pitching_WAR = WAR.y, pitching_BABIP = BABIP.y) %>%
+  filter(yearID != 2021) 
+
+team_season_data <- fg_all %>%
+  left_join(br_data) %>%
+  filter(yearID >= 1920) %>%
+  mutate(decade_year = yearID%%10,
+         decade = yearID - yearID%%10)
+
+world_series_winner <- team_season_data %>%
+  filter(LgWin == 'Y' & WSWin == 'Y')
+
+world_series_loser <- team_season_data %>%
+  filter(LgWin == 'Y' & WSWin == 'N')
+
+
+world_series_team_stats <- world_series_winner %>%
+  inner_join(world_series_loser, by = 'yearID', suffix = c('_winner', '_loser')) %>%
+  mutate(wrc_plus_dif = wRC._winner - wRC._loser,
+         fip_minus_dif = FIP._winner - FIP._loser,
+         era_dif = ERA_winner - ERA_loser,
+         avg_dif = AVG_winner - AVG_loser,
+         batting_WAR_dif = batting_WAR_winner - batting_WAR_loser,
+         pitching_WAR_dif = pitching_WAR_winner - pitching_WAR_loser,
+         RS_G_dif = RS_G_winner - RS_G_loser,
+         RA_G_dif = RA_G_winner - RA_G_loser) %>%
+  mutate(better_wrc_plus = case_when (wrc_plus_dif >= 0 ~ 'Better WRC+', TRUE ~ 'Worse WRC+'),
+         better_fip_minus = case_when (fip_minus_dif <= 0 ~ 'Better FIP-', TRUE ~ 'Worse FIP-'),
+         better_era = case_when (era_dif <=0 ~ 'Better ERA', TRUE ~ 'Worse ERA'),
+         better_avg = case_when (avg_dif >0 ~ 'Better AVG', TRUE ~ 'Worse AVG'),
+         better_batting_WAR_dif = case_when (batting_WAR_dif >= 0 ~ 'Better Batting WAR', TRUE ~ 'Worse Batting WAR'),
+         better_pitching_WAR_dif = case_when (pitching_WAR_dif >= 0 ~ 'Worse Pitching WAR', TRUE ~ 'Worse Pitching WAR'),
+         better_RS_G_dif = case_when (RS_G_dif >= 0 ~ 'Better RS/G', TRUE ~ 'Worse RS/G'),
+         better_RA_G_dif = case_when (RA_G_dif <= 0 ~ 'Better RA/G', TRUE ~ 'Worse RA/G')
+         )
+```
+
+```{r ra_vs_rs, echo=FALSE, message=FALSE, warning=FALSE}
+ws_ra_stats <- world_series_team_stats %>%   
+  mutate(adv_type = case_when(RS_G_dif >= 0 & RA_G_dif <= 0 ~ 'Better Pitching and Hitting',
+                   RS_G_dif < 0 & RA_G_dif <= 0 ~ 'Better Pitching, Worse Hitting',
+                   RS_G_dif < 0 & RA_G_dif > 0 ~ 'Worse Pitching and Hitting',
+                   RS_G_dif >= 0 & RA_G_dif > 0 ~ 'Worse Pitching, Better Hitting'))
+
+ws_ra_scatter <- ws_ra_stats %>%
+  ggplot(aes(x = RS_G_dif, 
+             y = RA_G_dif, 
+             color = adv_type,
+             text = paste0('<b>', yearID, ' ',name_winner, ' beat ',name_loser,'</b>',
+                           '<br><b>',name_winner, '</b><br>Runs Scored Per Game:',
+                           round(RS_G_winner, 2),
+                           '<br>','Runs Allowed Per Game: ', round(RA_G_winner, 2),
+                           '<br><br><b>',name_loser, '</b></br>Runs Scored Per Game:',
+                           round(RS_G_loser, 2),
+                           '<br>', 'Runs Allowed Per Game: ',
+                           round(RA_G_loser, 2),
+                           '<br><br>', 'Runs Scored Per Game Dif: ',
+                           round(RS_G_dif, 2),
+                           '<br>', 'Runs Allowed Per Game Dif: ',
+                           round(RA_G_dif, 2)
+             )))+
+  geom_point(alpha = 0.8)+
+  theme_ipsum()+
+  ylab('RA/G Dif')+
+  xlab('RS/G Dif')+
+  ylim(-1.5,1.5)+
+  xlim(-2.5,2.5)+
+  scale_color_manual(values = c('#84F5B1', '#8490F5', '#F584C8', '#F5E984'))+
+  theme(legend.title = element_blank())
+
+ws_ra_trend <- ws_ra_stats %>%
+  ggplot(aes(x = yearID,
+             y = min(1),  
+             fill = adv_type,
+             text = paste0('<b>', yearID, ' ',name_winner, ' beat ',name_loser,'</b>',
+                           '<br><b>',name_winner, '</b><br>Runs Scored Per Game:',
+                           round(RS_G_winner, 2),
+                           '<br>','Runs Allowed Per Game: ', round(RA_G_winner, 2),
+                           '<br><br><b>',name_loser, '</b></br>Runs Scored Per Game:',
+                           round(RS_G_loser, 2),
+                           '<br>', 'Runs Allowed Per Game: ',
+                           round(RA_G_loser, 2),
+                           '<br><br>', 'Runs Scored Per Game Dif: ',
+                           round(RS_G_dif, 2),
+                           '<br>', 'Runs Allowed Per Game Dif: ',
+                           round(RA_G_dif, 2)
+                           
+             )))+
+  geom_bar(stat = 'identity')+ #, show.legend = FALSE
+  #scale_color_manual(values = c("#6A84D4", "#FF9F8D"))+
+  scale_fill_manual(values = c('#84F5B1', '#8490F5', '#F584C8', '#F5E984'))+
+  theme_ipsum()+
+  theme(panel.grid.minor = element_blank(),
+        panel.grid.major = element_blank(),
+        axis.title.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))+
+  scale_x_continuous(breaks = seq(1920, 2020, by = 10))+
+  xlab('Season')
+
+ws_ra_table <- ws_ra_stats %>%
+  group_by(better_RS_G_dif, better_RA_G_dif) %>%
+  summarise(teams = n()) %>%
+  pivot_wider(names_from = better_RA_G_dif, values_from = teams) %>%
+  ungroup() %>%
+  mutate(Total = `Better RA/G` + `Worse RA/G`) %>%
+  gt() %>%
+  grand_summary_rows(columns = c(2:4), 
+                     formatter = fmt_integer,
+                     fns = list(Total = ~sum(.))) %>%
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style = list(
+      cell_text(weight = "bold")
+    )
+  ) %>%
+    cols_label(
+    better_RS_G_dif = "",
+  )
+
+ws_ra_table
+```
+Reading this, we see that 43 of 95 World Series winners, or 45%, had a better runs scored per game than their opponents, while 53 of 95, or 56%, had better offense. 15 were better at both, 14 worse, 38 had better hitting but worse pitching and 28 had better pitching but worse hitting. Overall, pretty inconclusive, though the it's interesting that most winners are strong in at least one area, with underdogs only winning 14 total (15 if you count the 2021 Atlanta Braves, who aren't in this dataset.)
+```{r ra_rs_trend, echo=FALSE, message=FALSE, warning=FALSE}
+ggplotly(ws_ra_scatter, tooltip = "text") %>% 
+  layout(legend=list(title=list(text='<b>Winner Type</b>')))
+```
+From this view, we see that it's usually fairly close. Back in the 20s, the winner would have outscored their opponent by over 1 run per game, with few examples in the modern era. 
+
+```{r ra_rs_scatter, echo=FALSE, message=FALSE, warning=FALSE}
+ggplotly(ws_ra_trend, tooltip = "text") %>% 
+  layout(legend=list(title=list(text='<b>Winner Type</b>')))
+```
+In recent history, better hitting teams have had the run - this has repeated several times throughout the years.
+
+But what if we look at other metrics? Let's try the old stalwarts, ERA and batting average, to see if they change the story.
+
+```{r trad_stats_table}
+ws_trad_stats <- world_series_team_stats %>%   
+  mutate(adv_type = case_when(avg_dif >= 0 & avg_dif <= 0 ~ 'Better Pitching and Hitting',
+                   avg_dif < 0 & avg_dif <= 0 ~ 'Better Pitching, Worse Hitting',
+                   avg_dif < 0 & avg_dif > 0 ~ 'Worse Pitching and Hitting',
+                   avg_dif >= 0 & avg_dif > 0 ~ 'Worse Pitching, Better Hitting'))
+
+ws_trad_table <- ws_trad_stats %>%
+  group_by(better_avg, better_era) %>%
+  summarise(teams = n()) %>%
+  pivot_wider(names_from = better_era, values_from = teams) %>%
+  ungroup() %>%
+  mutate(Total = `Better ERA` + `Worse ERA`) %>%
+  gt() %>%
+  grand_summary_rows(columns = c(2:4), 
+                     formatter = fmt_integer,
+                     fns = list(Total = ~sum(.))) %>%
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style = list(
+      cell_text(weight = "bold")
+    )
+  ) %>%
+    cols_label(
+    better_avg = "",
+  )
+
+ws_trad_table
+```
+Well, that was certainly anticlimactic. Not surprisingly, perhaps, since runs scored per games should match up with ERA pretty closely, and AVG should work with run production roughly.
+
+Maybe sabermetric stats will show a different story instead. Let's look at FIP-, which is essentially how good a pitcher is compared to league average looking at strikeouts, walks, and home runs, adjusting for league and park. This takes defense out of the picture, but we're looking to see if pitching wins, not pitching and defense, so maybe this will help. For offense, we'll use wRC+, which says how good a hitter is compared to league average, against adjusting for park.
+
+```{r saber_stats_table}
+ws_saber_stats <- world_series_team_stats %>%   
+  mutate(adv_type = case_when(fip_minus_dif >= 0 & wrc_plus_dif <= 0 ~ 'Better Pitching and Hitting',
+                   fip_minus_dif < 0 & wrc_plus_dif <= 0 ~ 'Better Pitching, Worse Hitting',
+                   fip_minus_dif < 0 & wrc_plus_dif > 0 ~ 'Worse Pitching and Hitting',
+                   fip_minus_dif >= 0 & wrc_plus_dif > 0 ~ 'Worse Pitching, Better Hitting'))
+
+ws_saber_table <- ws_saber_stats %>%
+  group_by(better_wrc_plus, better_fip_minus) %>%
+  summarise(teams = n()) %>%
+  pivot_wider(names_from = better_fip_minus, values_from = teams) %>%
+  ungroup() %>%
+  mutate(Total = `Better FIP-` + `Worse FIP-`) %>%
+  gt() %>%
+  grand_summary_rows(columns = c(2:4), 
+                     formatter = fmt_integer,
+                     fns = list(Total = ~sum(.))) %>%
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style = list(
+      cell_text(weight = "bold")
+    )
+  ) %>%
+    cols_label(
+    better_wrc_plus = "",
+  )
+
+ws_saber_table
+```
+You're forgiven if you think I've just shown you the same table again, but here we are. No matter how we cut if, there's a slight edge to teams with better offense.
+
+All this isn't to say that pitching doesn't matter in the postseason. It clearly does, if your offense scores 12 runs but you give up 13 you're going to lose. But we won't see any clear signal that a better pitching team is a clear favorite, either. Rather, whichever team gets hot in a best of 7 series is likely to win, and most the time, that will wind up being the team with more talent.

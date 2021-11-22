@@ -6,7 +6,7 @@
     <description>Recent content on Point Estimates</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 15 Nov 2021 07:00:00 -0500</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Nov 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>/about/</link>
@@ -14,6 +14,15 @@
       
       <guid>/about/</guid>
       <description>I&amp;rsquo;m a data analyst looking to explain data in a way that hopefully makes sense to non-data people, as well as occasionally provide more detailed tutorials and guides on a variety of subjects related to data such as software (R and Tableau), techniques, and general thinking about problems and questions.</description>
+    </item>
+    
+    <item>
+      <title>Pitching Wins Playoffs, Unless it Doesn&#39;t.</title>
+      <link>/post/2021-11-22-pitching-wins-unless-it-doesn-t/</link>
+      <pubDate>Mon, 22 Nov 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-11-22-pitching-wins-unless-it-doesn-t/</guid>
+      <description>Every year, we hear that pitching wins the MLB postseason. This is often said by ex-pitchers so we expect some bias, but even so there’s some merit. After all, teams get to take advantage of the travel schedule to go from five starters to four, putting their worst starter in the bullpen where he’ll either ride the bench or be used in shorter, more effective spurts.</description>
     </item>
     
     <item>
