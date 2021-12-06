@@ -1,0 +1,425 @@
+---
+title: Heil Hydra? What are the odds they're in charge?
+author: ''
+date: '2021-11-29'
+slug: []
+categories:
+  - probability
+tags:
+  - probability
+  - r
+lastmod: '2021-12-05T10:19:15-05:00'
+keywords: []
+description: ''
+comment: no
+toc: no
+autoCollapseToc: no
+postMetaInFooter: no
+hiddenFromHomePage: no
+contentCopyright: no
+reward: no
+mathjax: no
+mathjaxEnableSingleDollar: no
+mathjaxEnableAutoNumber: no
+hideHeaderAndFooter: no
+flowchartDiagrams:
+  enable: no
+  options: ''
+sequenceDiagrams:
+  enable: no
+  options: ''
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+
+</div>
+
+<p>You’ve just received word from a friend that Hydra has secretly taken over the government for its own nefarious reasons. There’s only one source for this info, though, and the evidence they cite is primarily circumstantial. However; the narrative provided would explain a lot of things. How can we go about sorting this out?</p>
+<p>Firstly, let’s not that this exercise can’t provide a definitive answer to whether or not Hydra has in fact taken root. Whatever the odds, there’s always a chance that they sneak in there anyway. What this does do is give us a framework for thinking about how likely this is.</p>
+<p>We’ll go through this in several steps, thinking through what’s necessary for Hydra to have taken over in the first place. What’s the scope of their plan? (Are they egging somebody’s car, or are they defacing the moon?) Given the scope, how many people would have to be involved and how trustworthy are they?</p>
+<p>Let’s also note that we assume they need to operate in secrecy, which adds some complexity for them. Unlike a despotic ruling regime that can do its nefarious deeds in public because they are the power, they have to operate knowing there’s a law in place that could land them in prison.</p>
+<p>With that, we can establish some rules around trust. If there’s an organizational plot like this, then each member of the plot carries a risk of blowing it all, with each additional member adding some risk. Suppose for simplicity they had only two recruits available, and each had a 50% sense of success. How likely are they to succeed? A zero is a failure, a 1 is a success.</p>
+<div id="gfnzgltfff" style="overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>html {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Helvetica Neue', 'Fira Sans', 'Droid Sans', Arial, sans-serif;
+}
+
+#gfnzgltfff .gt_table {
+  display: table;
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#gfnzgltfff .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 0;
+  padding-bottom: 6px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#gfnzgltfff .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#gfnzgltfff .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#gfnzgltfff .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#gfnzgltfff .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#gfnzgltfff .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#gfnzgltfff .gt_group_heading {
+  padding: 8px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfnzgltfff .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#gfnzgltfff .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#gfnzgltfff .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#gfnzgltfff .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#gfnzgltfff .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 12px;
+}
+
+#gfnzgltfff .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfnzgltfff .gt_first_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#gfnzgltfff .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#gfnzgltfff .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfnzgltfff .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#gfnzgltfff .gt_sourcenote {
+  font-size: 90%;
+  padding: 4px;
+}
+
+#gfnzgltfff .gt_left {
+  text-align: left;
+}
+
+#gfnzgltfff .gt_center {
+  text-align: center;
+}
+
+#gfnzgltfff .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#gfnzgltfff .gt_font_normal {
+  font-weight: normal;
+}
+
+#gfnzgltfff .gt_font_bold {
+  font-weight: bold;
+}
+
+#gfnzgltfff .gt_font_italic {
+  font-style: italic;
+}
+
+#gfnzgltfff .gt_super {
+  font-size: 65%;
+}
+
+#gfnzgltfff .gt_footnote_marks {
+  font-style: italic;
+  font-weight: normal;
+  font-size: 65%;
+}
+</style>
+<table class="gt_table">
+  
+  <thead class="gt_col_headings">
+    <tr>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;">A</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_left" rowspan="1" colspan="1" style="font-weight: bold;">B</th>
+      <th class="gt_col_heading gt_columns_bottom_border gt_right" rowspan="1" colspan="1" style="font-weight: bold;">Probability</th>
+    </tr>
+  </thead>
+  <tbody class="gt_table_body">
+    <tr><td class="gt_row gt_left">Fail</td>
+<td class="gt_row gt_left">Fail</td>
+<td class="gt_row gt_right">25&percnt;</td></tr>
+    <tr><td class="gt_row gt_left">Fail</td>
+<td class="gt_row gt_left">Success</td>
+<td class="gt_row gt_right">25&percnt;</td></tr>
+    <tr><td class="gt_row gt_left">Success</td>
+<td class="gt_row gt_left">Fail</td>
+<td class="gt_row gt_right">25&percnt;</td></tr>
+    <tr><td class="gt_row gt_left">Success</td>
+<td class="gt_row gt_left">Success</td>
+<td class="gt_row gt_right">25&percnt;</td></tr>
+  </tbody>
+  
+  
+</table>
+</div>
+<p>Not great, Bob. Either they both fail, one fails and the other succeeds, one succeeds and the other fails, or they both succeed. So only 25% chance of success in total, which should make Captain America’s job easier.</p>
+<p>Except, of course, this is Hydra. They’re only going to recruit the best of the best, so let’s assume they’re only accepting anybody they believe has a 99% chance of carrying out their mission while keeping it a secret. So in our example above, we now have two guys with a 99% chance, changing our overall numbers to 98%.</p>
+<blockquote>
+<p>We’re going to take a bit of a shortcut from here on out. Not everybody will have the exact same score, so the better approach would be to multiply all the numbers together and report that. Since some numbers would go below the mean, we’d wind up with a lower number. However; that’s not really how people think, and we’re looking for an approximation right now anyway, so using the mean to the power of the population size (i.e. .99 ^ 50) will suffice.</p>
+</blockquote>
+<p>Let’s assume Hydra only gets the best of the best, and each of their members has a 99.9% chance of carrying out their task and keeping their yap shut. At what point will their odds of success drop below 90%?</p>
+<p><img src="{{< blogdown/postref >}}index.en_files/figure-html/odds_chart-1.png" width="672" />
+So we can get up to 105 people in this scenario before our total odds fall below 90%. They could double their population if they doubled their risk of exposure, but that still leaves only 200 people. This puts a cap on how much they can accomplish - if they wanted to smuggle weapons to Latveria, steal weapons blueprints, or use their power to cover organized crime, that’s relatively feasible. But we can pretty much rule out plots to install a Taliban-style government, brainwash the nation, or generally anything we might see in the movies.</p>
+<blockquote>
+<p>I suppose we could spend some time working out how likely it is that we’ll be attacked by the Death Star, but most of us are more easily able to spot fiction in sci-fi than when watching a James Bond movie - a far-reaching conspiracy seems more plausible when your hero isn’t waving a laser sword.</p>
+</blockquote>
+<p>But just to be safe, let’s also work out how many potential recruits they could get. The US population is above 331 million <a href="&#39;https://en.wikipedia.org/wiki/Demographics_of_the_United_States&#39;">per Wikipedia</a>, with 239 million aged 21 or above. We don’t know for sure how many meet Hydra’s 99.9% trust/competency criteria, but we can assume that since it’s an elite cadre it’s low, so let’s say 0.05%. We also need to consider how many people are likely to go along with Hydra’s methods - even if they agree with the philosophy, not all of them are willing to go to those extremes. And since it’s pretty extreme, we’ll put that population at 0.01%.</p>
+<p>So how many people are both capable and willing? To get that, we can simply multiply 0.05% by 0.01%, which gets us 0.005%. Multiply that by 239 million, we get 1,194. Assuming they have some way of meeting each other (common ancestry, an evil internet message board, etc.), they theoretically have a large enough population to power their scheme, though since .999 ^ 1,149 is 30.2%, they’d be taking a substantial risk if they involved everybody in their scheme.</p>
+<p>What have we learned, then? We can tweak our numbers if we like, but the general framework suggests that if there is an evil conspiracy afoot, it would have to be somewhat limited in size for it to work.</p>
+<p>Or, if you want a more persuasive argument, just watch this:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5muY64Oyp10" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+</iframe>
