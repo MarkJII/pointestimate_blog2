@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>causal inference on Point Estimates</title>
+    <link>/tags/causal-inference/</link>
+    <description>Recent content in causal inference on Point Estimates</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Thu, 16 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/tags/causal-inference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Casual Causality, or a Study of Studies</title>
+      <link>/post/2021-12-16-casual-causality-or-a-study-of-studies/</link>
+      <pubDate>Thu, 16 Dec 2021 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2021-12-16-casual-causality-or-a-study-of-studies/</guid>
+      <description>One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good.</description>
+    </item>
+    
+  </channel>
+</rss>

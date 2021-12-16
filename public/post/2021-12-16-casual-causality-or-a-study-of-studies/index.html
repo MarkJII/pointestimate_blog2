@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Casual Causality, or a Study of Studies - Point Estimates</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="Mark Jurries II" /><meta name="description" content="One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good." /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.88.1 with theme even" />
+
+
+<link rel="canonical" href="/post/2021-12-16-casual-causality-or-a-study-of-studies/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.b874a8796a492f0d7c86bb24c33cbf052935783a5778ebaf819a8e514bf49f10.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Casual Causality, or a Study of Studies" />
+<meta property="og:description" content="One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/post/2021-12-16-casual-causality-or-a-study-of-studies/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2021-12-16T00:00:00+00:00" />
+<meta property="article:modified_time" content="2021-12-15T12:57:30-05:00" />
+
+<meta itemprop="name" content="Casual Causality, or a Study of Studies">
+<meta itemprop="description" content="One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good."><meta itemprop="datePublished" content="2021-12-16T00:00:00+00:00" />
+<meta itemprop="dateModified" content="2021-12-15T12:57:30-05:00" />
+<meta itemprop="wordCount" content="977">
+<meta itemprop="keywords" content="r,probability,causal inference," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Casual Causality, or a Study of Studies"/>
+<meta name="twitter:description" content="One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good."/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-28GSTJXMEJ"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-28GSTJXMEJ');
+</script>
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">Point Estimates</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a><a href="/about/">
+        <li class="mobile-menu-item">About</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">Point Estimates</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/about/">About</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Casual Causality, or a Study of Studies</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2021-12-16 </span>
+        
+        
+      </div>
+    </header>
+
+    
+    <div class="post-content">
+      
+<script src="/post/2021-12-16-casual-causality-or-a-study-of-studies/index.en_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+
+</div>
+
+<p>One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good.</p>
+<p>Sometimes finding this is obvious, but oftentimes it’s not. If I change the checkout button on my site from grey to blue, will more users end up purchasing? If we invent what we think is a cure to the common cold, how can we know it works vs. people just getting better on their own?</p>
+<p>This is where we use something called a Randomized Control Trial. (RCT for short) In these, we take a large population and split them into two groups. One group gets the treatment (the blue checkout button, the cold cure, etc), while the other does not. We need a test group to see the effect, and we need a control group to see what would happen without the effect.</p>
+<p>It’s <strong>critical</strong> that the test and control groups are as similar as possible. If you’re running a test on your website and the control has primarily desktop users while test is primarily mobile, and difference you detect may be due to device behavior instead of your intervention. If you’re running a drug trial and your test group is primarily younger with a less severe cold and your control is older with more severe symptoms, you’re likely measuring the impact of having a cold while younger.</p>
+<p>Thinking through what factors may distinguish groups may take a very long time, which is fine - if this was easy, everybody would be doing it. In a truly randomized trial with a large enough population, you should be OK, though you should still check your data to make sure. In the end, what you want is something that says “all other things being equal, this is the effect”. If the groups aren’t comparable, then your test statistic will be meaningless - garbage in, garbage out.</p>
+<blockquote>
+<p>(For more on why subgroups are important, <a href="https://www.covid-datascience.com/post/simpson-s-paradox-strikes-again-refuting-reports-vaxxed-have-5x-case-fatality-rate-than-untaxed">this piece</a> on Simpson’s Paradox in COVID outcomes is a good primer.)</p>
+</blockquote>
+<p>The makeup of the groups will also determine how broadly applicable the results are. If we only run our blue button test on desktop, then we won’t know how it works on mobile. If we only put seniors into our cold cure test (or, say, only allergy sufferers, only men, etc.), then we’ll be less certain how it works on everybody else.</p>
+<p>It’s also important that only one treatment was tested. If we test our blue button and also change its location on the page, we don’t know which action influenced are users. Likewise, if we have our cold cure group also drink 2 extra glasses of orange juice a day, we won’t know if it was the cure or the OJ that did the trick - or if it was a combination of the two.</p>
+<p>Once your groups are set up, the outcome of interest defined and the statistical significance levels set (usually looking for a less than 5% chance that the difference is completely random - you can use an online calculator <a href="https://www.stat.ubc.ca/~rollin/stats/ssize/n2.html">like this</a> to set your sample size), you just need to run the trial. Once it’s complete, collect the data, make sure it’s reasonable (both in balance of groups and results - if your cart conversion rate is normally 6% and the test shows 27%, something may be off), and go from there.</p>
+<p>Oftentimes in a business setting a full RCT won’t be viable. The business is likely to frown if you suggest they only run a promotion for some customers if they believe promotions generate more revenue overall. All is not lost here, as there are a variety of methods (propensity score matching, instrumental variables, etc.) to help narrow down the effect.</p>
+<p>Your results should be repeatable as well. If we ran 10,000 users through our web test and found the blue button increased conversion, then it should work if we run 10,000 new users through as well. If it doesn’t, then there was either something flawed in your methodology or you had a fluky first test.</p>
+<p>Like most things in life, not all RCTs are created equal. Some are run very well, while others use the right language but have small samples sizes, unlike treatment/control groups, poor statistical or methodological controls, or any other number of problems. This is why we see so many news stories about how some food cures cancer one day, then the next day it causes it. If you have a bit of time, <a href="https://astralcodexten.substack.com/p/ivermectin-much-more-than-you-wanted">this essay</a> from Astral Codex Ten does a thorough job running through studies on Ivermectin and COVID and the strengths and faults in them.</p>
+<p>Now, when we see a poorly done study, it’s not fair to jump right to “the authors had nefarious purposes”. This is hard stuff, and sometimes well-meaning folk do work they’re just not well-trained enough to do. Hanlon’s razor - “never attribute to malice that which is adequately explained by stupidity” - fits well here.</p>
+<p>But meaning well doesn’t make one right, either, and sloppy studies remain sloppy no matter how gold-hearted the researchers are. I may make you a terrible cake while meaning the best, but my good intentions aren’t going to moisten up my dried-out desert. So if you see a study, take the time to learn how it was done and if it was done well, and if it wasn’t, don’t assume it’s part of some shady going-ons, though it is likely still wrong.</p>
+
+    </div>
+
+    
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/r/">r</a>
+          <a href="/tags/probability/">probability</a>
+          <a href="/tags/causal-inference/">causal inference</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/2021-11-29-heil-hydra-what-are-the-odds-they-re-in-charge/">
+            <span class="next-text nav-default">Heil Hydra? What are the odds they&#39;re in charge?</span>
+            <span class="next-text nav-mobile">Next</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+      <a href="https://www.linkedin.com/in/mark-jurries-ii-94b61313/" class="iconfont icon-linkedin" title="linkedin"></a>
+      <a href="https://github.com/MarkJII?tab=repositories" class="iconfont icon-github" title="github"></a>
+  <a href="/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    Powered by <a class="hexo-link" href="https://gohugo.io">Hugo</a>
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    Theme - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2021<span class="heart"><i class="iconfont icon-heart"></i></span><span>Mark Jurries II</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+
+
+
+<script type="text/javascript" src="/js/main.min.c99b103c33d1539acf3025e1913697534542c4a5aa5af0ccc20475ed2863603b.js"></script>
+
+
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'G-28GSTJXMEJ', 'auto');
+	ga('set', 'anonymizeIp', true);
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+
+
+
+
+
+
+</body>
+</html>

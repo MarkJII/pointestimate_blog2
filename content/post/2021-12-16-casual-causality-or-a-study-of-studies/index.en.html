@@ -1,0 +1,54 @@
+---
+title: Casual Causality, or a Study of Studies
+author: ''
+date: '2021-12-16'
+slug: []
+categories: []
+tags:
+  - r
+  - probability
+  - causal inference
+lastmod: '2021-12-15T12:57:30-05:00'
+keywords: []
+description: ''
+comment: no
+toc: no
+autoCollapseToc: no
+postMetaInFooter: no
+hiddenFromHomePage: no
+contentCopyright: no
+reward: no
+mathjax: no
+mathjaxEnableSingleDollar: no
+mathjaxEnableAutoNumber: no
+hideHeaderAndFooter: no
+flowchartDiagrams:
+  enable: no
+  options: ''
+sequenceDiagrams:
+  enable: no
+  options: ''
+---
+
+<script src="{{< blogdown/postref >}}index.en_files/header-attrs/header-attrs.js"></script>
+
+<div id="TOC">
+
+</div>
+
+<p>One of the most interesting questions we can ask is “does x cause y?”. If we know what causes something, we can avoid it (we know that fire ignites gas, so we don’t light a candle in a room filled with propane) or pursue it (we know that diet and exercise lead to better health outcomes, so we grudgingly go with it). You may never run a test like this yourself, but since they’re so prevalent it’s helpful to understand how they work and what makes a test good.</p>
+<p>Sometimes finding this is obvious, but oftentimes it’s not. If I change the checkout button on my site from grey to blue, will more users end up purchasing? If we invent what we think is a cure to the common cold, how can we know it works vs. people just getting better on their own?</p>
+<p>This is where we use something called a Randomized Control Trial. (RCT for short) In these, we take a large population and split them into two groups. One group gets the treatment (the blue checkout button, the cold cure, etc), while the other does not. We need a test group to see the effect, and we need a control group to see what would happen without the effect.</p>
+<p>It’s <strong>critical</strong> that the test and control groups are as similar as possible. If you’re running a test on your website and the control has primarily desktop users while test is primarily mobile, and difference you detect may be due to device behavior instead of your intervention. If you’re running a drug trial and your test group is primarily younger with a less severe cold and your control is older with more severe symptoms, you’re likely measuring the impact of having a cold while younger.</p>
+<p>Thinking through what factors may distinguish groups may take a very long time, which is fine - if this was easy, everybody would be doing it. In a truly randomized trial with a large enough population, you should be OK, though you should still check your data to make sure. In the end, what you want is something that says “all other things being equal, this is the effect”. If the groups aren’t comparable, then your test statistic will be meaningless - garbage in, garbage out.</p>
+<blockquote>
+<p>(For more on why subgroups are important, <a href="https://www.covid-datascience.com/post/simpson-s-paradox-strikes-again-refuting-reports-vaxxed-have-5x-case-fatality-rate-than-untaxed">this piece</a> on Simpson’s Paradox in COVID outcomes is a good primer.)</p>
+</blockquote>
+<p>The makeup of the groups will also determine how broadly applicable the results are. If we only run our blue button test on desktop, then we won’t know how it works on mobile. If we only put seniors into our cold cure test (or, say, only allergy sufferers, only men, etc.), then we’ll be less certain how it works on everybody else.</p>
+<p>It’s also important that only one treatment was tested. If we test our blue button and also change its location on the page, we don’t know which action influenced are users. Likewise, if we have our cold cure group also drink 2 extra glasses of orange juice a day, we won’t know if it was the cure or the OJ that did the trick - or if it was a combination of the two.</p>
+<p>Once your groups are set up, the outcome of interest defined and the statistical significance levels set (usually looking for a less than 5% chance that the difference is completely random - you can use an online calculator <a href="https://www.stat.ubc.ca/~rollin/stats/ssize/n2.html">like this</a> to set your sample size), you just need to run the trial. Once it’s complete, collect the data, make sure it’s reasonable (both in balance of groups and results - if your cart conversion rate is normally 6% and the test shows 27%, something may be off), and go from there.</p>
+<p>Oftentimes in a business setting a full RCT won’t be viable. The business is likely to frown if you suggest they only run a promotion for some customers if they believe promotions generate more revenue overall. All is not lost here, as there are a variety of methods (propensity score matching, instrumental variables, etc.) to help narrow down the effect.</p>
+<p>Your results should be repeatable as well. If we ran 10,000 users through our web test and found the blue button increased conversion, then it should work if we run 10,000 new users through as well. If it doesn’t, then there was either something flawed in your methodology or you had a fluky first test.</p>
+<p>Like most things in life, not all RCTs are created equal. Some are run very well, while others use the right language but have small samples sizes, unlike treatment/control groups, poor statistical or methodological controls, or any other number of problems. This is why we see so many news stories about how some food cures cancer one day, then the next day it causes it. If you have a bit of time, <a href="https://astralcodexten.substack.com/p/ivermectin-much-more-than-you-wanted">this essay</a> from Astral Codex Ten does a thorough job running through studies on Ivermectin and COVID and the strengths and faults in them.</p>
+<p>Now, when we see a poorly done study, it’s not fair to jump right to “the authors had nefarious purposes”. This is hard stuff, and sometimes well-meaning folk do work they’re just not well-trained enough to do. Hanlon’s razor - “never attribute to malice that which is adequately explained by stupidity” - fits well here.</p>
+<p>But meaning well doesn’t make one right, either, and sloppy studies remain sloppy no matter how gold-hearted the researchers are. I may make you a terrible cake while meaning the best, but my good intentions aren’t going to moisten up my dried-out desert. So if you see a study, take the time to learn how it was done and if it was done well, and if it wasn’t, don’t assume it’s part of some shady going-ons, though it is likely still wrong.</p>
