@@ -6,7 +6,7 @@
     <description>Recent content on Point Estimates</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 16 Dec 2021 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 04 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>About</title>
       <link>/about/</link>
@@ -14,6 +14,22 @@
       
       <guid>/about/</guid>
       <description>I&amp;rsquo;m a data analyst looking to explain data in a way that hopefully makes sense to non-data people, as well as occasionally provide more detailed tutorials and guides on a variety of subjects related to data such as software (R and Tableau), techniques, and general thinking about problems and questions.</description>
+    </item>
+    
+    <item>
+      <title>Context is King</title>
+      <link>/post/2022-01-04-context-is-king/</link>
+      <pubDate>Tue, 04 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>/post/2022-01-04-context-is-king/</guid>
+      <description>
+&lt;script src=&#34;{{&lt; blogdown/postref &gt;}}index.en_files/header-attrs/header-attrs.js&#34;&gt;&lt;/script&gt;
+
+&lt;div id=&#34;TOC&#34;&gt;
+
+&lt;/div&gt;
+
+</description>
     </item>
     
     <item>
