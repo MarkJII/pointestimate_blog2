@@ -1,0 +1,107 @@
+---
+title: Total Denomination
+author: ''
+date: '2022-01-15'
+slug: []
+categories:
+  - probability
+tags:
+  - probability
+lastmod: '2022-01-15T15:41:20-05:00'
+keywords: []
+description: ''
+comment: no
+toc: no
+autoCollapseToc: no
+postMetaInFooter: no
+hiddenFromHomePage: no
+contentCopyright: no
+reward: no
+mathjax: no
+mathjaxEnableSingleDollar: no
+mathjaxEnableAutoNumber: no
+hideHeaderAndFooter: no
+flowchartDiagrams:
+  enable: no
+  options: ''
+sequenceDiagrams:
+  enable: no
+  options: ''
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+library(dplyr)
+library(ggplot2)
+library(hrbrthemes)
+library(purrr)
+library(plotly)
+library(gt)
+library(tidyverse)
+
+set.seed(2021)
+```
+
+```{r create_sample_data, include=FALSE}
+example_data <- data.frame(color = c('Black', 'Blue'), 
+                           sent = c(1000, 100), 
+                           signups = c(100, 25))
+```
+
+Imagine you've just sent flyers for an event. You wanted to know if people were more likely to respond if you used blue instead of black, so you sent copies in both colors. You tracked who got which so you could tie it back. The signup date has come and gone, and you can now see the results.
+```{r sample_table, warning=FALSE}
+example_data %>%
+  gt() %>%
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style = list(
+      cell_text(weight = "bold")
+    )
+  ) %>%
+  cols_label(
+    color = "Color",
+    sent = "Sent",
+    signups = "Signups"
+  ) %>%
+  cols_hide(sent)
+```
+Well that seems conclusive. 80% of our signups came from people who got the black version, so it's time to order up a bunch of black ink for our next event. People clearly like it more, so blue ink can take a long walk off a short pier, as far as we're concerned.
+
+Except... now that you think about it, you didn't have that much blue ink in the first place, so you made fewer copies. Maybe we need to take a look at how many of each we sent as well.
+
+
+```{r sample_table_expanded, warning=FALSE}
+example_data %>%
+  mutate(response_rate = signups / sent) %>%
+  gt() %>%
+  tab_style(
+    locations = cells_column_labels(columns = everything()),
+    style = list(
+      cell_text(weight = "bold")
+    )
+  ) %>%
+  cols_label(
+    color = "Color",
+    sent = "Sent",
+    signups = "Signups",
+    response_rate = "Response Rate"
+  ) %>%
+    fmt_number(
+    columns = sent,
+    decimals = 0,
+  ) %>%
+    fmt_percent(
+    columns = response_rate,
+    decimals = 0
+  )
+```
+Well, glad we looked - the blue version had a much higher conversion rate, which will offset the extra cost of color printing. But we came awfully close to making the wrong conclusion. What happened?
+
+It's a fairly common mistake, but one we need to be wary of. We were only looking at the **total number of signups**, in which case we saw more black. However; we neglected the **base population**, that is, how different the total number of black vs blue were sent. The first question we were (unintentionally) answering was *"given that they signed up, how likely is it they received a black or blue flyer"*, when what we wanted to answer instead was *"given the color flyer received, how likely is someone to sign up?"*.
+
+This type of thinking may show up in more consequential areas as well. For instance, we may learn that 53% of those killed in car accidents were wearing a seatbelt, and conclude that wearing one is basically a coin flip when it comes to safety. But when we learn that 90% of riders are wearing one ([source](https://www.nhtsa.gov/risky-driving/seat-belts)), this changes our view considerably - 10% of the population making up half the fatalities is pretty stark. Even before seeing the raw numbers, we can infer from the population proportions that there's likely a strong casual effect.
+
+>We'd want to take the time to break things down by age, vehicle type, speed, time of day, etc. to control for other things that could be impacting the data. That's well out of scope for this example, but doing subgroup analysis is always a sound idea.
+
+So next time you see a report showing the percentage breakdown of a population, be sure to ask if those numbers are really telling the story you're being told they are, or if there's further context that would explain a group's odds of showing up there in the first place.
+
